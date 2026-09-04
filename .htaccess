@@ -1,5 +1,1 @@
 Options -Indexes
-<Files "log.txt">
-    Order Allow,Deny
-    Deny from all
-</Files>
